@@ -44,6 +44,16 @@ class TaskManager:
             print(f"Задача выполнена: {task.description}")
         else:
             print("Неверный номер задачи")
+    
+    def show_statistics(self):  # ← ДОБАВЛЕННЫЙ МЕТОД
+        total = len(self.tasks)
+        completed = sum(1 for task in self.tasks if task.completed)
+        pending = total - completed
+        
+        print(f"\n--- Статистика ---")
+        print(f"Всего задач: {total}")
+        print(f"Выполнено: {completed}")
+        print(f"Осталось: {pending}")
 
 def main():
     manager = TaskManager()
@@ -53,7 +63,9 @@ def main():
         print("2. Показать невыполненные задачи")
         print("3. Добавить задачу")
         print("4. Выполнить задачу")
-        print("5. Выход")
+        print("5. Показать статистику")  # ← ДОБАВЛЕН ПУНКТ
+        print("6. Выход")  # ← ИЗМЕНЕН НОМЕР
+        
         choice = input("Выберите действие: ")
         if choice == "1":
             manager.show_tasks()
@@ -70,7 +82,9 @@ def main():
                     manager.complete_task(task_num)
                 except ValueError:
                     print("Введите корректный номер")
-        elif choice == "5":
+        elif choice == "5":  # ← ДОБАВЛЕН ВАРИАНТ
+            manager.show_statistics()
+        elif choice == "6":  # ← ИЗМЕНЕН НОМЕР
             print("До свидания!")
             break
         else:
